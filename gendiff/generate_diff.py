@@ -1,8 +1,16 @@
 import json
 
+def change_bool(dict):
+    for key, value in dict.items():
+      if value == True:
+        dict[key] = 'true'
+      elif value == False:
+        dict[key] = 'false'
+    return dict
+
 def generate_diff(file_path1, file_path2):
-    file1 = json.load(open(file_path1))
-    file2 = json.load(open(file_path2))
+    file1 = json.load(open(file_path1), object_hook=change_bool)
+    file2 = json.load(open(file_path2), object_hook=change_bool)
     dict1 = dict(sorted(file1.items()))
     dict2 = dict(sorted(file2.items()))
     result =''
