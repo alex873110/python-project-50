@@ -1,4 +1,4 @@
-make lint:
+make check:
 	poetry run flake8 gendiff
 make install:
 	python3 -m pip install --user dist/*.whl
