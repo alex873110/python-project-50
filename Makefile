@@ -8,7 +8,10 @@ reinstall:
 	python3 -m pip install --user --force-reinstall dist/*.whl
 test:
 	poetry run pytest
-check: test lint
+selfcheck:
+	poetry check
+
+check: selfcheck test lint
 
 test-coverage:
 	poetry run pytest --cov=gendiff --cov-report xml
