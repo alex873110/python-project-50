@@ -11,6 +11,6 @@ test:
 check: test lint
 
 test-coverage:
-	poetry run pytest --cov=hexlet_python_package --cov-report xml
+	poetry run pytest --cov=gendiff --cov-report xml
 
 .PHONY: install test lint check build
