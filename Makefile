@@ -9,3 +9,8 @@ reinstall:
 test:
 	poetry run pytest
 check: test lint
+
+test-coverage:
+	poetry run pytest --cov=hexlet_python_package --cov-report xml
+
+.PHONY: install test lint check build
