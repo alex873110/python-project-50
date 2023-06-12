@@ -1,6 +1,9 @@
 from gendiff.generate_diff  import generate_diff
 
-result_1 = "{\n- follow: false\nhost: hexlet.io\n- proxy: 123.234.53.22\n
-              - timeout: 50\n+ timeout: 20\n+ verbose: true\n}"
+file = open('./tests/fixtures/expected.txt', 'r')
+result_1 = file.read()
+
+adress1 = './tests/fixtures/file1.json'
+adress2 = './tests/fixtures/file2.json' 
 def test_generate_diff():
-    assert generate_diff(gendiff/files/file1.json, gendiff/files/file2.json) == result_1
+    assert generate_diff(adress1, adress2) + '\n'  == result_1
