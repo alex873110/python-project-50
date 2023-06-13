@@ -1,5 +1,3 @@
-import json
-
 
 def change_bool(dict):
     for key, value in dict.items():
@@ -11,11 +9,12 @@ def change_bool(dict):
     return dict
 
 
-def generate_diff(file_path1, file_path2):
-    file1 = json.load(open(file_path1), object_hook=change_bool)
-    file2 = json.load(open(file_path2), object_hook=change_bool)
+def generate_diff(parsed):
+    file1, file2 = parsed
     dict1 = dict(sorted(file1.items()))
+    dict1 = change_bool(dict1)
     dict2 = dict(sorted(file2.items()))
+    dict2 = change_bool(dict2)
     result = ''
     for key in dict1:
         if key in dict2:
