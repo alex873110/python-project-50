@@ -15,3 +15,5 @@ src="https://api.codeclimate.com/v1/badges/dafb77493b9982091195/maintainability"
 <https://asciinema.org/a/eAgnFmzdU1FujHG8FGFnbgXJv>
 
 [![asciicast](https://asciinema.org/a/eAgnFmzdU1FujHG8FGFnbgXJv.svg)](https://asciinema.org/a/eAgnFmzdU1FujHG8FGFnbgXJv)
+
+[![asciicast](https://asciinema.org/a/VwqJPCeXCWjWBI0bvl7yQ3kS0.svg)](https://asciinema.org/a/VwqJPCeXCWjWBI0bvl7yQ3kS0)
