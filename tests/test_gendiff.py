@@ -16,3 +16,14 @@ parsed2 = get_parsed(adress3, adress4)
 def test_generate_diff():
     assert generate_diff(parsed1) + '\n'  == result_1
     assert generate_diff(parsed2) + '\n'  == result_1
+
+deeppath1 = './tests/fixtures/deepfile1.json'
+deeppath2 = './tests/fixtures/deepfile2.json'
+deeppath3 = './tests/fixtures/deepfile1..yml'
+deeppath4 = './tests/fixtures/deepfile2.yaml
+parsed3 = get_parsed(deeppath1, deeppath2)
+parsed4 = get_parsed(deeppath3, deeppath4)
+
+def test_generate_diff():
+    assert generate_diff(parsed3) + '\n'  == result_2
+    assert generate_diff(parsed4) + '\n'  == result_2
