@@ -19,8 +19,8 @@ def test_generate_diff():
 
 deeppath1 = './tests/fixtures/deepfile1.json'
 deeppath2 = './tests/fixtures/deepfile2.json'
-deeppath3 = './tests/fixtures/deepfile1..yml'
-deeppath4 = './tests/fixtures/deepfile2.yaml
+deeppath3 = './tests/fixtures/deepfile1.yml'
+deeppath4 = './tests/fixtures/deepfile2.yaml'
 parsed3 = get_parsed(deeppath1, deeppath2)
 parsed4 = get_parsed(deeppath3, deeppath4)
 
