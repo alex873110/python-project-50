@@ -3,6 +3,8 @@ from gendiff.parser import get_parsed
 
 file = open('./tests/fixtures/expected.txt', 'r')
 result_1 = file.read()
+deepfile = open('./tests/fixtures/deepexpected.txt', 'r')
+result_2 = deepfile.read()
 
 adress1 = './tests/fixtures/file1.json'
 adress2 = './tests/fixtures/file2.json' 
