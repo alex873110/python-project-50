@@ -10,10 +10,12 @@ def change_bool(dict):
                 dict[key] = 'true'
             elif value is False:
                 dict[key] = 'false'
+            elif value is None:
+                dict[key] = 'null'
     return dict
 
 
-def get_parsed(path1, path2):
+def convert(path1, path2):
     lst = [path1, path2]
     for index, item in enumerate(lst):
         extension = str(item)[-4:]
