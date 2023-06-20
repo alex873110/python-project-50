@@ -3,7 +3,7 @@
 import argparse
 from gendiff import generate_diff
 from gendiff import convert
-from gendiff import stylish
+from gendiff import make_volume_string as stylish
 
 
 def main():

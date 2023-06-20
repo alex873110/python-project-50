@@ -9,7 +9,7 @@ def change_bool(dictionary):
     return dictionary
 
 
-def stylish(data):
+def make_volume_string(data):
     change_bool(data)
 
     def walk(data, level):

@@ -1,15 +1,4 @@
-from gendiff.formaters.stylish import stylish
-
-
-def change_bool(dictionary):
-    for key, value in dictionary.items():
-        if isinstance(value, dict):
-            change_bool(value)
-        elif isinstance(value, bool):
-            dictionary[key] = str(value).lower()
-        elif value is None:
-            dictionary[key] = 'null'
-    return dictionary
+from gendiff.formaters.stylish import make_volume_string
 
 
 def diff(data_1, data_2):
@@ -35,6 +24,6 @@ def diff(data_1, data_2):
     return new_data
 
 
-def generate_diff(converted, format=stylish):
+def generate_diff(converted, format=make_volume_string):
     file1_data, file2_data = converted
     return format(diff(file1_data, file2_data))
