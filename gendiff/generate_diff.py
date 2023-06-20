@@ -1,4 +1,4 @@
-# from gendiff import stylish
+from gendiff.formaters.stylish import stylish
 
 
 def change_bool(dictionary):
@@ -10,30 +10,6 @@ def change_bool(dictionary):
         elif value is None:
             dictionary[key] = 'null'
     return dictionary
-
-
-def stylish(data):
-    change_bool(data)
-
-    def walk(data, level):
-        result = ''
-        symbol = ('    ' * level)[:-2]
-        last_blanks = ('    ' * level)
-        if isinstance(data, dict):
-            for key in data.keys():
-                marks = ['+', '-', ' ']
-                if key[0] not in marks:
-                    symbol = ('    ' * level)
-                value = data[key]
-                if isinstance(data[key], dict):
-                    result += f'\n{symbol}{key}: '
-                    result += f'{{{walk(value, (level + 1))}\n{last_blanks}}}'
-                else:
-                    result += f'\n{symbol}{key}:'
-                    if value:
-                        result += f' {value}'
-        return result
-    return f'{{{walk(data, 1)}\n}}'
 
 
 def diff(data_1, data_2):
