@@ -4,10 +4,7 @@ def change_bool(dictionary):
         if isinstance(value, dict):
             change_bool(value)
         elif isinstance(value, bool):
-            if value is True:
-                dictionary[key] = 'true'
-            elif value is False:
-                dictionary[key] = 'false'
+            dictionary[key] = str(value).lower()
         elif value is None:
             dictionary[key] = 'null'
     return dictionary
@@ -36,7 +33,7 @@ def diff(data_1, data_2):
     return new_data
 
 
-def convert_to_stroke(data):
+def stylish(data):
     change_bool(data)
 
     def walk(data, level):
@@ -60,6 +57,6 @@ def convert_to_stroke(data):
     return f'{{{walk(data, 1)}\n}}'
 
 
-def generate_diff(converted):
+def generate_diff(converted, format=stylish):
     file1_data, file2_data = converted
-    return convert_to_stroke(diff(file1_data, file2_data))
+    return format(diff(file1_data, file2_data))
