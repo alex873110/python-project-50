@@ -3,6 +3,7 @@
 import argparse
 from gendiff import generate_diff
 from gendiff import convert
+from gendiff import stylish
 
 
 def main():
@@ -10,9 +11,11 @@ def main():
          description='Compares two configuration files and shows a difference.')
     parser.add_argument('first_file', type=str, help='')
     parser.add_argument('second_file', type=str, help='')
-    parser.add_argument('-f', '--format', type=str, help='set format of output')
+    parser.add_argument('-f', '--format', type=str,
+                        default=stylish, help='set format of output')
     args = parser.parse_args()
-    print(generate_diff(convert(args.first_file, args.second_file)))
+    converted = convert(args.first_file, args.second_file)
+    print(generate_diff(converted, args.format))
 
 
 if __name__ == "__main__":
