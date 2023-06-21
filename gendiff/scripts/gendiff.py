@@ -4,6 +4,7 @@ import argparse
 from gendiff import generate_diff
 from gendiff import convert
 from gendiff import make_volume_string as stylish
+from gendiff import make_plain as plain
 
 
 def main():
@@ -17,6 +18,8 @@ def main():
     converted = convert(args.first_file, args.second_file)
     if args.format == "stylish":
         formater = stylish
+    elif args.format == "plain":
+        formater = plain
     print(generate_diff(converted, formater))
 
 
