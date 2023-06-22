@@ -11,29 +11,36 @@ def replace(something):
     return result
 
 
+def generate_text(key_, data_, path):
+    plus = ' was added with value: '
+    minus = ' was removed'
+    update = ' was updated. From '
+    value = data_[key_]
+    replacer = replace(value)
+    mark = str(key_)[0]
+    original_key = str(key_)[2:]
+    key2 = f'+ {original_key}'
+    key1 = f'- {original_key}'
+    start = f"Property '{path}{original_key}'"
+    text = ''
+    if key_ == key1 and key1 in data_ and key2 in data_:
+        text = f"{start}{update}{replacer} to {replace(data_[key2])}\n"
+    elif mark == '+' and key1 not in data_:
+        text = f"{start}{plus}{replacer}\n"
+    elif mark == '-':
+        text = f"{start}{minus}\n"
+    return text
+
+
 def make_plain(data):
     change_bool(data)
 
     def walk(data, adress=""):
         result = ''
         for key in data.keys():
-            value = data[key]
-            replacer = replace(value)
-            mark = str(key)[0]
-            original_key = str(key)[2:]
-            key2 = f'+ {original_key}'
-            key1 = f'- {original_key}'
-            plus = ' was added with value: '
-            minus = ' was removed\n'
-            update = ' was updated. From '
-            if key == key1 and key1 in data and key2 in data:
-                result += f"Property '{adress}{original_key}'{update}{replacer}"
-                result += f" to {replace(data[key2])}\n"
-            elif mark == ' ' and isinstance(value, dict):
-                result += walk(value, (adress + f'{original_key}.'))
-            elif mark == '+' and key1 not in data:
-                result += f"Property '{adress}{original_key}'{plus}{replacer}\n"
-            elif mark == '-':
-                result += f"Property '{adress}{original_key}'{minus}"
+            if key[0] == ' ' and isinstance(data[key], dict):
+                result += walk(data[key], (adress + f'{key[2:]}.'))
+            else:
+                result += generate_text(key, data, adress)
         return result
     return walk(data)[:-1]
