@@ -14,34 +14,26 @@ def replace(something):
 def make_plain(data):
     change_bool(data)
 
-    def walk(data, path=""):
+    def walk(data, adress=""):
         result = ''
         for key in data.keys():
             value = data[key]
             replacer = replace(value)
             mark = str(key)[0]
-            original = str(key)[2:]
-            key2 = f'+ {original}'
-            key1 = f'- {original}'
+            original_key = str(key)[2:]
+            key2 = f'+ {original_key}'
+            key1 = f'- {original_key}'
             plus = ' was added with value: '
             minus = ' was removed\n'
             update = ' was updated. From '
-            if key1 in data and key2 in data:
-                if key == key1:
-                    result += f"Property '{path}{original}'{update}"
-                    result += f"{replacer} to {replace(data[key2])}\n"
-            elif mark == ' ':
-                if isinstance(value, dict):
-                    result += walk(value, (path + f'{original}.'))
-            elif mark == '+':
-                if isinstance(value, dict):
-                    result += f"Property '{path}{original}'{plus}{replacer}\n"
-                else:
-                    result += f"Property '{path}{original}'{plus}{replacer}\n"
+            if key == key1 and key1 in data and key2 in data:
+                result += f"Property '{adress}{original_key}'{update}{replacer}"
+                result += f" to {replace(data[key2])}\n"
+            elif mark == ' ' and isinstance(value, dict):
+                result += walk(value, (adress + f'{original_key}.'))
+            elif mark == '+' and key1 not in data:
+                result += f"Property '{adress}{original_key}'{plus}{replacer}\n"
             elif mark == '-':
-                if isinstance(value, dict):
-                    result += f"Property '{path}{original}'{minus}"
-                else:
-                    result += f"Property '{path}{original}'{minus}"
+                result += f"Property '{adress}{original_key}'{minus}"
         return result
     return walk(data)[:-1]
