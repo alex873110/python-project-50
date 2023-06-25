@@ -2,9 +2,9 @@
 
 import argparse
 from gendiff import generate_diff
-from gendiff import make_volume_string as stylish
-from gendiff import make_plain as plain
-from gendiff import make_json as json
+# from gendiff import make_volume_string as stylish
+# from gendiff import make_plain as plain
+# from gendiff import make_json as json
 
 
 def main():
@@ -15,13 +15,7 @@ def main():
     parser.add_argument('-f', '--format', type=str,
                         default='stylish', help='set format of output')
     args = parser.parse_args()
-    if args.format == "stylish":
-        formater = stylish
-    elif args.format == "plain":
-        formater = plain
-    elif args.format == "json":
-        formater = json
-    print(generate_diff(args.first_file, args.second_file, formater))
+    print(generate_diff(args.first_file, args.second_file, args.format))
 
 
 if __name__ == "__main__":

@@ -27,7 +27,7 @@ def test_generate_diff():
     assert generate_diff(path3, path4) + '\n'  == result_1
     assert generate_diff(path5, path6) + '\n' == result_2
     assert generate_diff(path7, path8) + '\n' == result_2
-    assert generate_diff(path5, path6, make_plain) + '\n' == result_3
-    assert generate_diff(path7, path8, make_plain) + '\n' == result_3
-    assert generate_diff(path5, path6, make_json) + '\n' == result_4
-    assert generate_diff(path7, path8, make_json) + '\n' == result_4
+    assert generate_diff(path5, path6, 'plain') + '\n' == result_3
+    assert generate_diff(path7, path8, 'plain') + '\n' == result_3
+    assert generate_diff(path5, path6, 'json') + '\n' == result_4
+    assert generate_diff(path7, path8, 'json') + '\n' == result_4

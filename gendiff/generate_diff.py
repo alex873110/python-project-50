@@ -1,4 +1,6 @@
-from gendiff.formaters.stylish import make_volume_string
+from gendiff.formaters.stylish import make_volume_string as stylish
+from gendiff.formaters.plain import make_plain as plain
+from gendiff.formaters.json import make_json as json
 from gendiff.converter import convert
 
 
@@ -35,7 +37,16 @@ def diff(data_1, data_2):
     return new_data
 
 
-def generate_diff(file1_path, file2_path, format=make_volume_string):
+def use_formater(data, format):
+    if format == 'stylish':
+        return stylish(data)
+    elif format == 'plain':
+        return plain(data)
+    elif format == 'json':
+        return json(data)
+
+
+def generate_diff(file1_path, file2_path, format='stylish'):
     file1_data, file2_data = convert(file1_path, file2_path)
     difference = diff(file1_data, file2_data)
-    return format(difference)
+    return use_formater(difference, format)
