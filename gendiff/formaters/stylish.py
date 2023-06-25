@@ -19,11 +19,10 @@ def generate_stroke(key, value, level):
     symbols_quantity = 4 * level - mark_size
     symbols = symbols_quantity * significant
     if isinstance(value, dict):
-        stroke = f'\n{symbols}{key}:'
+        stroke = f'\n{symbols}{key}: '
     else:
-        stroke = f'\n{symbols}{key}:'
-        if value:
-            stroke += f' {value}'
+        stroke = f'\n{symbols}{key}: '
+        stroke += f'{value}'
     return stroke
 
 
@@ -37,7 +36,7 @@ def make_volume_string(data):
             value = data[key]
             if isinstance(data[key], dict):
                 result += generate_stroke(key, value, level)
-                result += f' {{{walk(value, (level + 1))}\n{last_blanks}}}'
+                result += f'{{{walk(value, (level + 1))}\n{last_blanks}}}'
             else:
                 result += generate_stroke(key, value, level)
         return result
