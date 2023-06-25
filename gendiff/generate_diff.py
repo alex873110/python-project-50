@@ -37,4 +37,5 @@ def diff(data_1, data_2):
 
 def generate_diff(file1_path, file2_path, format=make_volume_string):
     file1_data, file2_data = convert(file1_path, file2_path)
-    return format(diff(file1_data, file2_data))
+    difference = diff(file1_data, file2_data)
+    return format(difference)
