@@ -8,8 +8,8 @@ from gendiff import generate_diff
 
 
 def main():
-    parser = argparse.ArgumentParser(
-         description='Compares two configuration files and shows a difference.')
+    write_up = 'Compares two configuration files and shows a difference.'
+    parser = argparse.ArgumentParser(description=write_up)
     parser.add_argument('first_file', type=str, help='')
     parser.add_argument('second_file', type=str, help='')
     parser.add_argument('-f', '--format', type=str,

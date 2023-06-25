@@ -1,6 +1,4 @@
-from gendiff.generate_diff  import generate_diff
-from gendiff.formaters.plain import make_plain
-from gendiff.formaters.json import make_json
+from gendiff.generate_diff import generate_diff
 
 file = open('./tests/fixtures/expected.txt', 'r')
 result_1 = file.read()
@@ -13,7 +11,7 @@ result_4 = to_json_file.read()
 
 
 path1 = './tests/fixtures/file1.json'
-path2 = './tests/fixtures/file2.json' 
+path2 = './tests/fixtures/file2.json'
 path3 = './tests/fixtures/file3.yml'
 path4 = './tests/fixtures/file4.yaml'
 path5 = './tests/fixtures/deepfile1.json'
@@ -23,8 +21,8 @@ path8 = './tests/fixtures/deepfile2.yaml'
 
 
 def test_generate_diff():
-    assert generate_diff(path1, path2) + '\n'  == result_1
-    assert generate_diff(path3, path4) + '\n'  == result_1
+    assert generate_diff(path1, path2) + '\n' == result_1
+    assert generate_diff(path3, path4) + '\n' == result_1
     assert generate_diff(path5, path6) + '\n' == result_2
     assert generate_diff(path7, path8) + '\n' == result_2
     assert generate_diff(path5, path6, 'plain') + '\n' == result_3
