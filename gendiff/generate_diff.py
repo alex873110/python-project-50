@@ -1,4 +1,5 @@
 from gendiff.formaters.stylish import make_volume_string
+from gendiff.converter import convert
 
 
 def mark_key(data1, data2, key):
@@ -34,6 +35,6 @@ def diff(data_1, data_2):
     return new_data
 
 
-def generate_diff(converted, format=make_volume_string):
-    file1_data, file2_data = converted
+def generate_diff(file1_path, file2_path, format=make_volume_string):
+    file1_data, file2_data = convert(file1_path, file2_path)
     return format(diff(file1_data, file2_data))
