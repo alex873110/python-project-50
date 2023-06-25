@@ -4,10 +4,10 @@ from .stylish import change_bool
 def replace(something):
     if isinstance(something, dict):
         result = '[complex value]'
-    elif something not in ['true', 'null', 'false']:
-        result = f"'{something}'"
-    else:
+    elif something in ['true', 'null', 'false'] or isinstance(something, int):
         result = something
+    else:
+        result = f"'{something}'"
     return result
 
 
