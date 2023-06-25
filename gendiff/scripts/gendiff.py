@@ -5,6 +5,7 @@ from gendiff import generate_diff
 from gendiff import convert
 from gendiff import make_volume_string as stylish
 from gendiff import make_plain as plain
+from gendiff import make_json as json
 
 
 def main():
@@ -20,6 +21,8 @@ def main():
         formater = stylish
     elif args.format == "plain":
         formater = plain
+    elif args.format == "json":
+        formater = json
     print(generate_diff(converted, formater))
 
 
