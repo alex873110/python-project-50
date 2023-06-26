@@ -20,10 +20,10 @@ path6 = './tests/fixtures/deepfile2.json'
 path7 = './tests/fixtures/deepfile1.yml'
 path8 = './tests/fixtures/deepfile2.yaml'
 
-@pytest.mark.parametrize('input1,input2,expected',[(path1, path2, result_1),
-                         (path3, path4, result_1), (path5, path6, result_2),
-			 (path7, path8, result_2)])
 
+@pytest.mark.parametrize('input1,input2,expected', [(path1, path2, result_1),
+                        (path3, path4, result_1), (path5, path6, result_2),
+			(path7, path8, result_2)])
 def test_generate_diff(input1, input2, expected):
     assert generate_diff(input1, input2) + '\n' == expected
 
