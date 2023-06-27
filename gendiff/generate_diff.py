@@ -47,6 +47,6 @@ def use_formater(data, format):
 
 
 def generate_diff(file1_path, file2_path, format='stylish'):
-    file1_data, file2_data = convert(file1_path, file2_path)
+    file1_data, file2_data = convert(file1_path), convert(file2_path)
     difference = diff(file1_data, file2_data)
     return use_formater(difference, format)
