@@ -1,7 +1,5 @@
-from gendiff.formaters.stylish import make_volume_string as stylish
-from gendiff.formaters.plain import make_plain as plain
-from gendiff.formaters.json import make_json as json
 from gendiff.converter import convert
+from gendiff.formaters.formater import use_formater
 
 
 def mark_key(data1, data2, key):
@@ -35,15 +33,6 @@ def diff(data_1, data_2):
         else:
             new_data.update(mark_key(data_1, data_2, key))
     return new_data
-
-
-def use_formater(data, format):
-    if format == 'stylish':
-        return stylish(data)
-    elif format == 'plain':
-        return plain(data)
-    elif format == 'json':
-        return json(data)
 
 
 def generate_diff(file1_path, file2_path, format='stylish'):
