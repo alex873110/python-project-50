@@ -1,46 +1,38 @@
-from .stylish import change_bool
+from .stylish import change_to_str
 
 
 def replace(something):
     if isinstance(something, dict):
         result = '[complex value]'
-    elif something in ['true', 'null', 'false'] or isinstance(something, int):
-        result = something
-    else:
+    elif isinstance(something, str):
         result = f"'{something}'"
+    else:
+        result = change_to_str(something)
     return result
 
 
-def generate_text(key_, data_, path):
-    plus = ' was added with value: '
-    minus = ' was removed'
-    update = ' was updated. From '
-    value = data_[key_]
-    replacer = replace(value)
-    mark = str(key_)[0]
-    original_key = str(key_)[2:]
-    key2 = f'+ {original_key}'
-    key1 = f'- {original_key}'
-    start = f"Property '{path}{original_key}'"
+def generate_text(key_, data_, adress_):
+    val_ = data_[key_]
+    start = f"Property '{adress_}{key_}'"
     text = ''
-    if key_ == key1 and key1 in data_ and key2 in data_:
-        text = f"{start}{update}{replacer} to {replace(data_[key2])}\n"
-    elif mark == '+' and key1 not in data_:
-        text = f"{start}{plus}{replacer}\n"
-    elif mark == '-':
-        text = f"{start}{minus}\n"
+    if val_['status'] == 'updated':
+        text = f"{start} was updated. From {replace(val_['value']['removed'])}"
+        text += f" to {replace(val_['value']['added'])}\n"
+    elif val_['status'] == 'removed':
+        text = f"{start} was removed\n"
+    elif val_['status'] == 'added':
+        text = f"{start} was added with value: {replace(val_['value'])}\n"
     return text
 
 
-def make_plain(data):
-    change_bool(data)
-
-    def walk(data, adress=""):
+def make_plain(diff):
+    def walk(diff, adress=''):
         result = ''
-        for key in data.keys():
-            if key[0] == ' ' and isinstance(data[key], dict):
-                result += walk(data[key], (adress + f'{key[2:]}.'))
-            else:
-                result += generate_text(key, data, adress)
+        status_list = ['updated', 'removed', 'added']
+        for key, val in diff.items():
+            if val['status'] == 'changed':
+                result += walk(val['children'], (adress + f'{key}.'))
+            elif val['status'] in status_list:
+                result += generate_text(key, diff, adress)
         return result
-    return walk(data)[:-1]
+    return walk(diff)[:-1]

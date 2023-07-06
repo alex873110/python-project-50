@@ -1,44 +1,68 @@
-def change_bool(dictionary):
-    for key, value in dictionary.items():
-        if isinstance(value, dict):
-            change_bool(value)
-        elif isinstance(value, bool):
-            dictionary[key] = str(value).lower()
-        elif value is None:
-            dictionary[key] = 'null'
-    return dictionary
 
 
-def generate_stroke(key, value, level):
-    mark_size = 2
-    marks = ['+', '-', ' ']
-    if key[0] not in marks:
-        mark_size = 0
-    significant = ' '
-    # according to task for each level indent = 4 symbols
-    symbols_quantity = 4 * level - mark_size
-    symbols = symbols_quantity * significant
-    if isinstance(value, dict):
-        stroke = f'\n{symbols}{key}: '
+def change_to_str(data):
+    if isinstance(data, (int, bool)):
+        return str(data).lower()
+    elif data is None:
+        return 'null'
+    return data
+
+
+def make_volume(data, level=1):
+    symbol = ' ' * 4 * level
+    old_symbol = ' ' * 4 * (level - 1)
+    result = ''
+    if isinstance(data, dict):
+        result += "{\n"
+        for key, val in data.items():
+            result += f"{symbol}{key}: {make_volume(val, level + 1)}"
+        result += f"{old_symbol}}}\n"
     else:
-        stroke = f'\n{symbols}{key}: '
-        stroke += f'{value}'
-    return stroke
+        result += f"{change_to_str(data)}\n"
+    return result
 
 
-def make_volume_string(data):
-    change_bool(data)
+def choice_mark(status):
+    mark = ''
+    if status == 'added':
+        mark += '+ '
+    elif status == 'removed':
+        mark += '- '
+    elif status == 'unchanged':
+        mark += '  '
+    return mark
 
-    def walk(data, level):
+
+def generate_stroke(diff, key, level=1):
+    blank_size = 4
+    mark_size = 2
+    symbol = ' ' * (blank_size * level - mark_size)
+    result = ''
+    val = diff[key]
+    result = ''
+    status = val['status']
+    if status == 'updated':
+        items = sorted(val['value'].keys(), reverse=True)
+        for item in items:
+            result += f"{symbol}{choice_mark(item)}{key}: "
+            result += f"{make_volume(val['value'][item], level + 1)}"
+    elif status in ['added', 'removed', 'unchanged']:
+        result += f"{symbol}{choice_mark(status)}{key}: "
+        result += f"{make_volume(val['value'], level + 1)}"
+    return result
+
+
+def make_stylish(diff):
+    def walk(diff, level=1):
+        blank_size = 4
+        symbol = ' ' * level * blank_size
         result = ''
-        last_blanks = ('    ' * level)
-        for key in data.keys():
-            value = data[key]
-            if isinstance(data[key], dict):
-                result += generate_stroke(key, value, level)
-                result += f'{{{walk(value, (level + 1))}\n{last_blanks}}}'
+        for key, val in diff.items():
+            if val.get('children'):
+                result += f"{symbol}{key}: "
+                result += f"{{\n{walk(val['children'], level + 1)}"
+                result += f"{symbol}}}\n"
             else:
-                result += generate_stroke(key, value, level)
+                result += generate_stroke(diff, key, level)
         return result
-
-    return f'{{{walk(data, 1)}\n}}'
+    return f"{{\n{walk(diff)}}}"

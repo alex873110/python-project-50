@@ -1,4 +1,4 @@
-from gendiff.formaters.stylish import make_volume_string as stylish
+from gendiff.formaters.stylish import make_stylish as stylish
 from gendiff.formaters.plain import make_plain as plain
 from gendiff.formaters.json import make_json as json
 
