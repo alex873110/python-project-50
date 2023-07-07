@@ -30,7 +30,7 @@ def make_plain(diff):
         result = ''
         status_list = ['updated', 'removed', 'added']
         for key, val in diff.items():
-            if val['status'] == 'changed':
+            if val['status'] == 'nested':
                 result += walk(val['children'], (adress + f'{key}.'))
             elif val['status'] in status_list:
                 result += generate_text(key, diff, adress)

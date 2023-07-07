@@ -16,7 +16,7 @@ def diff(data1, data2):
         elif data1[key] == data2[key]:
             result[key] = {'status': 'unchanged', 'value': data1[key]}
         elif isinstance(data1[key], dict) and isinstance(data2[key], dict):
-            result[key] = {'status': 'changed',
+            result[key] = {'status': 'nested',
                            'children': diff(data1[key], data2[key])}
         else:
             result[key] = {'status': 'updated',

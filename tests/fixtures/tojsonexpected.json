@@ -1,6 +1,6 @@
 {
   "common": {
-    "status": "changed",
+    "status": "nested",
     "children": {
       "follow": {
         "status": "added",
@@ -32,10 +32,10 @@
         }
       },
       "setting6": {
-        "status": "changed",
+        "status": "nested",
         "children": {
           "doge": {
-            "status": "changed",
+            "status": "nested",
             "children": {
               "wow": {
                 "status": "updated",
@@ -59,7 +59,7 @@
     }
   },
   "group1": {
-    "status": "changed",
+    "status": "nested",
     "children": {
       "baz": {
         "status": "updated",
