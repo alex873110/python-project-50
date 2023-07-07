@@ -52,17 +52,19 @@ def generate_stroke(diff, key, level=1):
     return result
 
 
+def make_nested_dicts(diff, level=1):
+    blank_size = 4
+    last_symbol = ' ' * level * blank_size
+    result = ''
+    for key, val in diff.items():
+        if val.get('children'):
+            result += f"{last_symbol}{key}: {{\n"
+            result += f"{make_nested_dicts(val['children'], level + 1)}"
+            result += f"{last_symbol}}}\n"
+        else:
+            result += generate_stroke(diff, key, level)
+    return result
+
+
 def make_stylish(diff):
-    def walk(diff, level=1):
-        blank_size = 4
-        symbol = ' ' * level * blank_size
-        result = ''
-        for key, val in diff.items():
-            if val.get('children'):
-                result += f"{symbol}{key}: "
-                result += f"{{\n{walk(val['children'], level + 1)}"
-                result += f"{symbol}}}\n"
-            else:
-                result += generate_stroke(diff, key, level)
-        return result
-    return f"{{\n{walk(diff)}}}"
+    return f"{{\n{make_nested_dicts(diff)}}}"
