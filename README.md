@@ -1,3 +1,15 @@
+# Instalation
+For instsall run `poetry build`, `poetry publish --dry-run`,
+`python3 -m pip install --user dist/*.whl`.
+For help type `gendiff -h`
+
+
+# About project
+Difference calculator is a programm that shows the difference between two files. 
+JSON and YAML files are supported. Difference can be shown in three formats: stylish(nested dicts),
+plain(simple text) and json(JSON format). Stylish format is used by default.
+For use difference calculator type `gendiff -f <format>  <file1_path> <file2_path>' 
+
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/alex873110/python-project-50/workflows/hexlet-check/badge.svg)](https://github.com/alex873110/python-project-50/actions)
 
