@@ -11,7 +11,7 @@ def modify(data):
         return 'null'
 
 
-def generate_text(key_, data_, adress_):
+def generate_stroke(key_, data_, adress_):
     val_ = data_[key_]
     start = f"Property '{adress_}{key_}'"
     text = ''
@@ -33,6 +33,6 @@ def make_plain(diff):
             if val['status'] == 'nested':
                 result += walk(val['children'], (adress + f'{key}.'))
             elif val['status'] in status_list:
-                result += generate_text(key, diff, adress)
+                result += generate_stroke(key, diff, adress)
         return result
     return walk(diff)[:-1]

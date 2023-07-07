@@ -3,12 +3,12 @@ from gendiff.formaters.plain import make_plain as plain
 from gendiff.formaters.json import make_json as json
 
 
-def use_formater(data, format):
-    if format == 'stylish':
+def use_formater(data, formater):
+    if formater == 'stylish':
         return stylish(data)
-    elif format == 'plain':
+    elif formater == 'plain':
         return plain(data)
-    elif format == 'json':
+    elif formater == 'json':
         return json(data)
     else:
         raise ValueError('This formater not supported. '

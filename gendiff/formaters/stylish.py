@@ -15,14 +15,14 @@ def change_to_str(data):
     return data
 
 
-def make_volume(data, level=1):
+def make_volume_data(data, level=1):
     symbol = generate_symbol(level)
     old_symbol = generate_symbol(level - 1)
     result = ''
     if isinstance(data, dict):
         result += "{\n"
         for key, val in data.items():
-            result += f"{symbol}{key}: {make_volume(val, level + 1)}"
+            result += f"{symbol}{key}: {make_volume_data(val, level + 1)}"
         result += f"{old_symbol}}}\n"
     else:
         result += f"{change_to_str(data)}\n"
@@ -50,10 +50,10 @@ def generate_stroke(dict_, key, level=1):
         items = sorted(val['value'].keys(), reverse=True)
         for item in items:
             result += f"{symbol}{choice_mark(item)}{key}: "
-            result += f"{make_volume(val['value'][item], level + 1)}"
+            result += f"{make_volume_data(val['value'][item], level + 1)}"
     elif status in STATUSES:
         result += f"{symbol}{choice_mark(status)}{key}: "
-        result += f"{make_volume(val['value'], level + 1)}"
+        result += f"{make_volume_data(val['value'], level + 1)}"
     return result
 
 
