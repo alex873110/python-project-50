@@ -4,14 +4,14 @@ from gendiff.formaters.formater import use_formater
 
 def diff(data1, data2):
     keys = list(data1.keys() | data2.keys())
-    only_in_data1_keys = list(data1.keys() - data2.keys())
-    only_in_data2_keys = list(data2.keys() - data1.keys())
+    removed_keys = list(data1.keys() - data2.keys())
+    added_keys = list(data2.keys() - data1.keys())
     result = dict()
     keys.sort()
     for key in keys:
-        if key in only_in_data1_keys:
+        if key in removed_keys:
             result[key] = {'status': 'removed', 'value': data1[key]}
-        elif key in only_in_data2_keys:
+        elif key in added_keys:
             result[key] = {'status': 'added', 'value': data2[key]}
         elif data1[key] == data2[key]:
             result[key] = {'status': 'unchanged', 'value': data1[key]}
