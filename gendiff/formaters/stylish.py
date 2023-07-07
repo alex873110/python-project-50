@@ -33,12 +33,12 @@ def choice_mark(status):
     return mark
 
 
-def generate_stroke(diff, key, level=1):
+def generate_stroke(dict_, key, level=1):
     blank_size = 4
     mark_size = 2
     symbol = ' ' * (blank_size * level - mark_size)
     result = ''
-    val = diff[key]
+    val = dict_[key]
     result = ''
     status = val['status']
     if status == 'updated':
@@ -52,19 +52,19 @@ def generate_stroke(diff, key, level=1):
     return result
 
 
-def make_nested_dicts(diff, level=1):
+def make_nested_dicts(diff_dicts, level=1):
     blank_size = 4
     last_symbol = ' ' * level * blank_size
     result = ''
-    for key, val in diff.items():
+    for key, val in diff_dicts.items():
         if val.get('children'):
             result += f"{last_symbol}{key}: {{\n"
             result += f"{make_nested_dicts(val['children'], level + 1)}"
             result += f"{last_symbol}}}\n"
         else:
-            result += generate_stroke(diff, key, level)
+            result += generate_stroke(diff_dicts, key, level)
     return result
 
 
-def make_stylish(diff):
-    return f"{{\n{make_nested_dicts(diff)}}}"
+def make_stylish(diff_dicts):
+    return f"{{\n{make_nested_dicts(diff_dicts)}}}"
