@@ -10,3 +10,7 @@ def use_formater(data, format):
         return plain(data)
     elif format == 'json':
         return json(data)
+    else:
+        raise ValueError('This formater not supported. '
+                         "Only 'plain','stylish' or "
+                         "'json' formaters supported")
