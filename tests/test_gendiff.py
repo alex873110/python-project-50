@@ -37,7 +37,7 @@ def test_generate_diff(file1_name, file2_name, expected):
                            'tojsonexpected.json', 'json'),
                           ('deepfile1.yml', 'deepfile2.yaml',
                            'tojsonexpected.json', 'json')])
-def test_generate_diff_with_formater(file1_name,file2_name, expected, format):
+def test_generate_diff_with_formater(file1_name, file2_name, expected, format):
     file1 = get_fixture_path(file1_name)
     file2 = get_fixture_path(file2_name)
     result = read(get_fixture_path(expected))
