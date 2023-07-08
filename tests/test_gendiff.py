@@ -25,7 +25,7 @@ def test_generate_diff(file1_name, file2_name, expected):
     file1 = get_fixture_path(file1_name)
     file2 = get_fixture_path(file2_name)
     result = read(get_fixture_path(expected))[:-1]
-    assert generate_diff(file1, file2)  == result
+    assert generate_diff(file1, file2) == result
 
 
 @pytest.mark.parametrize('file1_name,file2_name,expected,format',
@@ -41,4 +41,4 @@ def test_generate_diff_with_formater(file1_name, file2_name, expected, format):
     file1 = get_fixture_path(file1_name)
     file2 = get_fixture_path(file2_name)
     result = read(get_fixture_path(expected))[:-1]
-    assert generate_diff(file1, file2, format)  == result
+    assert generate_diff(file1, file2, format) == result
