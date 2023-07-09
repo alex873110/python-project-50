@@ -5,9 +5,9 @@ MARK_SIZE = 2
 BLANK_SIZE = 4
 
 
-def get_spaces(level, mark_size=0):
-    characters = ' ' * (BLANK_SIZE * level - mark_size)
-    return characters
+def built_indent(level, mark_size=0):
+    indent = ' ' * (BLANK_SIZE * level - mark_size)
+    return indent
 
 
 def get_mark(status, level):
@@ -18,8 +18,8 @@ def get_mark(status, level):
         mark += '- '
     elif status == UNCHANGED:
         mark += '  '
-    spaces = get_spaces(level, MARK_SIZE)
-    return f"{spaces}{mark}"
+    indent = built_indent(level, MARK_SIZE)
+    return f"{indent}{mark}"
 
 
 def change_to_str(data):
@@ -31,32 +31,32 @@ def change_to_str(data):
 
 
 def make_volume_data(data, level=1):
-    characters = get_spaces(level)
-    previus_level_characters = get_spaces(level - 1)
+    indent = built_indent(level)
+    previus_level_indent = built_indent(level - 1)
     result = ''
     if isinstance(data, dict):
         result += "{\n"
         for key, val in data.items():
-            result += f"{characters}{key}: {make_volume_data(val, level + 1)}\n"
-        result += f"{previus_level_characters}}}"
+            result += f"{indent}{key}: {make_volume_data(val, level + 1)}\n"
+        result += f"{previus_level_indent}}}"
     else:
         result += f"{change_to_str(data)}"
     return result
 
 
 def make_stylish(diff, level=1):
-    characters = get_spaces(level)
-    prev_level_characters = get_spaces(level - 1)
+    indent = built_indent(level)
+    prev_level_indent = built_indent(level - 1)
     result = ['{']
     for key, val in diff.items():
         status = val.get('status')
         if status == NESTED:
             children = val['children']
-            result.append(f"{characters}{key}: "
+            result.append(f"{indent}{key}: "
                           f"{make_stylish(children, level + 1)}")
         elif status == UPDATED:
-            items = sorted(val['value'].keys(), reverse=True)
-            for item in items:
+            added_and_removed_val = sorted(val['value'].keys(), reverse=True)
+            for item in added_and_removed_val:
                 value = val['value'][item]
                 result.append(f"{get_mark(item, level)}{key}: "
                               f"{make_volume_data(value, level + 1)}")
@@ -64,6 +64,6 @@ def make_stylish(diff, level=1):
             value = val['value']
             result.append(f"{get_mark(status, level)}{key}: "
                           f"{make_volume_data(value, level + 1)}")
-    result.append(f"{prev_level_characters}}}")
+    result.append(f"{prev_level_indent}}}")
     result = '\n'.join(result)
     return result
