@@ -27,14 +27,14 @@ def change_to_str(data):
     return data
 
 
-def get_nested(data, level=1):
+def make_volume_data(data, level=1):
     characters = get_spaces(level)
     previus_level_characters = get_spaces(level - 1)
     result = ''
     if isinstance(data, dict):
         result += "{\n"
         for key, val in data.items():
-            result += f"{characters}{key}: {get_nested(val, level + 1)}\n"
+            result += f"{characters}{key}: {make_volume_data(val, level + 1)}\n"
         result += f"{previus_level_characters}}}"
     else:
         result += f"{change_to_str(data)}"
@@ -56,11 +56,11 @@ def make_stylish(diff, level=1):
             for item in items:
                 value = val['value'][item]
                 result.append(f"{get_mark(item, level)}{key}: "
-                              f"{get_nested(value, level + 1)}")
+                              f"{make_volume_data(value, level + 1)}")
         elif status in STATUSES:
             value = val['value']
             result.append(f"{get_mark(status, level)}{key}: "
-                          f"{get_nested(value, level + 1)}")
+                          f"{make_volume_data(value, level + 1)}")
     result.append(f"{prev_level_characters}}}")
     result = '\n'.join(result)
     return result
