@@ -1,6 +1,7 @@
 from gendiff.parser import get_content
 from gendiff.formaters.formater import use_formater
-from .constants import ADDED, REMOVED, UNCHANGED, NESTED, UPDATED
+from gendiff.formaters.constants import ADDED, REMOVED, UPDATED
+from gendiff.formaters.constants import UNCHANGED, NESTED
 
 
 def get_diff(data1, data2):

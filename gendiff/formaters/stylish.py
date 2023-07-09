@@ -1,5 +1,8 @@
-from gendiff.constants import ADDED, REMOVED, UNCHANGED, UPDATED
-from gendiff.constants import STATUSES, BLANK_SIZE, MARK_SIZE
+from .constants import ADDED, REMOVED, UNCHANGED, UPDATED, NESTED
+
+STATUSES = [ADDED, REMOVED, UNCHANGED]
+MARK_SIZE = 2
+BLANK_SIZE = 4
 
 
 def get_spaces(level, mark_size=0):
@@ -47,7 +50,7 @@ def make_stylish(diff, level=1):
     result = ['{']
     for key, val in diff.items():
         status = val.get('status')
-        if status == 'nested':
+        if status == NESTED:
             children = val['children']
             result.append(f"{characters}{key}: "
                           f"{make_stylish(children, level + 1)}")
