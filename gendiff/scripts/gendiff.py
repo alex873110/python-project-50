@@ -2,9 +2,6 @@
 
 import argparse
 from gendiff import generate_diff
-# from gendiff import make_stylish as stylish
-# from gendiff import make_plain as plain
-# from gendiff import make_json as json
 
 
 def main():
