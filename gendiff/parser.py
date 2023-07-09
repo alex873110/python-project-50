@@ -6,13 +6,13 @@ from yaml.loader import SafeLoader
 
 def parse_content(content, format):
     if format == 'json':
-        parsed_data = json.load(content)
+        parsed_content = json.load(content)
     elif format == 'yaml' or 'yml':
-        parsed_data = yaml.load(content, Loader=SafeLoader)
+        parsed_content = yaml.load(content, Loader=SafeLoader)
     else:
         raise ValueError('This format not supported. '
                          "Only 'yaml' and 'Json' formats supported")
-    return parsed_data
+    return parsed_content
 
 
 def get_content(path):
