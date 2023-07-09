@@ -15,7 +15,7 @@ def parse_content(content, format):
     return parsed_data
 
 
-def open_and_parse(path):
+def get_content(path):
     format = os.path.splitext(path)[1].strip('.')
     with open(path, 'r') as content:
         return parse_content(content, format)

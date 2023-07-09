@@ -1,4 +1,4 @@
-from gendiff.parser import open_and_parse
+from gendiff.parser import get_content
 from gendiff.formaters.formater import use_formater
 from .constants import ADDED, REMOVED, UNCHANGED, NESTED, UPDATED
 
@@ -27,7 +27,7 @@ def get_diff(data1, data2):
 
 
 def generate_diff(file1_path, file2_path, format='stylish'):
-    file1_data = open_and_parse(file1_path)
-    file2_data = open_and_parse(file2_path)
+    file1_data = get_content(file1_path)
+    file2_data = get_content(file2_path)
     difference = get_diff(file1_data, file2_data)
     return use_formater(difference, format)
