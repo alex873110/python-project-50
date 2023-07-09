@@ -22,14 +22,6 @@ def get_mark(status, level):
     return f"{indent}{mark}"
 
 
-def change_to_str(data):
-    if isinstance(data, (int, bool)):
-        return str(data).lower()
-    elif data is None:
-        return 'null'
-    return data
-
-
 def make_volume_data(data, level=1):
     indent = built_indent(level)
     previus_level_indent = built_indent(level - 1)
@@ -39,8 +31,12 @@ def make_volume_data(data, level=1):
         for key, val in data.items():
             result += f"{indent}{key}: {make_volume_data(val, level + 1)}\n"
         result += f"{previus_level_indent}}}"
+    elif isinstance(data, (int, bool)):
+        result += f"{str(data).lower()}"
+    elif data is None:
+        result += 'null'
     else:
-        result += f"{change_to_str(data)}"
+        result += data
     return result
 
 
