@@ -13,26 +13,26 @@ def to_str(data):
 
 
 def build_stroke(key, data, adress):
-    val = data[key]
+    value = data[key]
     start = f"Property '{adress}{key}'"
-    text = ''
-    if val['status'] == UPDATED:
-        text = f"{start} was updated. From {to_str(val['value'][REMOVED])}"
-        text += f" to {to_str(val['value'][ADDED])}"
-    elif val['status'] == REMOVED:
-        text = f"{start} was removed"
-    elif val['status'] == ADDED:
-        text = f"{start} was added with value: {to_str(val['value'])}"
-    return text
+    stroke = ''
+    if value['status'] == UPDATED:
+        stroke = f"{start} was updated. From {to_str(value['value'][REMOVED])}"
+        stroke += f" to {to_str(value['value'][ADDED])}"
+    elif value['status'] == REMOVED:
+        stroke = f"{start} was removed"
+    elif value['status'] == ADDED:
+        stroke = f"{start} was added with value: {to_str(value['value'])}"
+    return stroke
 
 
 def make_plain(diff, adress=''):
     result = []
-    status_list = [ADDED, REMOVED, UPDATED]
+    statuses = [ADDED, REMOVED, UPDATED]
     for key, val in diff.items():
         if val['status'] == NESTED:
             result.append(make_plain(val['children'], (adress + f'{key}.')))
-        elif val['status'] in status_list:
+        elif val['status'] in statuses:
             result.append(build_stroke(key, diff, adress))
     result = '\n'.join(result)
     return result
