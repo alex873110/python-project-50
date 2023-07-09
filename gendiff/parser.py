@@ -4,11 +4,11 @@ import os.path
 from yaml.loader import SafeLoader
 
 
-def parse_file(file_data, format):
+def parse_content(content, format):
     if format == 'json':
-        parsed_data = json.load(file_data)
+        parsed_data = json.load(content)
     elif format == 'yaml' or 'yml':
-        parsed_data = yaml.load(file_data, Loader=SafeLoader)
+        parsed_data = yaml.load(content, Loader=SafeLoader)
     else:
         raise ValueError('This format not supported. '
                          "Only 'yaml' and 'Json' formats supported")
@@ -18,4 +18,4 @@ def parse_file(file_data, format):
 def open_and_parse(path):
     format = os.path.splitext(path)[1].strip('.')
     with open(path, 'r') as content:
-        return parse_file(content, format)
+        return parse_content(content, format)
