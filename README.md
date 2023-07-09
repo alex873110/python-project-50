@@ -5,7 +5,7 @@ For help type `gendiff -h`
 
 
 # About project
-Difference calculator is a programm that shows the difference between two files.  
+Difference calculator is the programm that shows the difference between two files.  
 > JSON and YAML files are supported.  
 
 Difference can be shown in three formats:  
