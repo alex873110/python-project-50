@@ -1,6 +1,6 @@
 # Instalation
 For instsall run `poetry build`, `poetry publish --dry-run`,
-`python3 -m pip install --user dist/*.whl`.
+`python3 -m pip install --user dist/*.whl`.  
 For help type `gendiff -h`
 
 
