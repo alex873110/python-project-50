@@ -7,6 +7,18 @@ def get_spaces(level, mark_size=0):
     return characters
 
 
+def get_mark(status, level):
+    mark = ''
+    if status == ADDED:
+        mark += '+ '
+    elif status == REMOVED:
+        mark += '- '
+    elif status == UNCHANGED:
+        mark += '  '
+    spaces = get_spaces(level, MARK_SIZE)
+    return f"{spaces}{mark}"
+
+
 def change_to_str(data):
     if isinstance(data, (int, bool)):
         return str(data).lower()
@@ -29,18 +41,6 @@ def get_nested(data, level=1):
     return result
 
 
-def get_mark(status, level):
-    mark = ''
-    if status == ADDED:
-        mark += '+ '
-    elif status == REMOVED:
-        mark += '- '
-    elif status == UNCHANGED:
-        mark += '  '
-    spaces = get_spaces(level, MARK_SIZE)
-    return f"{spaces}{mark}"
-
-
 def make_stylish(diff, level=1):
     characters = get_spaces(level)
     prev_level_characters = get_spaces(level - 1)
@@ -48,16 +48,19 @@ def make_stylish(diff, level=1):
     for key, val in diff.items():
         status = val.get('status')
         if status == 'nested':
+            children = val['children']
             result.append(f"{characters}{key}: "
-                          f"{make_stylish(val['children'], level + 1)}")
+                          f"{make_stylish(children, level + 1)}")
         elif status == UPDATED:
             items = sorted(val['value'].keys(), reverse=True)
             for item in items:
+                value = val['value'][item]
                 result.append(f"{get_mark(item, level)}{key}: "
-                              f"{get_nested(val['value'][item], level + 1)}")
+                              f"{get_nested(value, level + 1)}")
         elif status in STATUSES:
+            value = val['value']
             result.append(f"{get_mark(status, level)}{key}: "
-                          f"{get_nested(val['value'], level + 1)}")
+                          f"{get_nested(value, level + 1)}")
     result.append(f"{prev_level_characters}}}")
     result = '\n'.join(result)
     return result
