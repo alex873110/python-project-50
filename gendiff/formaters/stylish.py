@@ -43,8 +43,8 @@ def get_mark(status, level):
 
 def make_stylish(diff, level=1):
     characters = get_spaces(level)
-    previus_characters = get_spaces(level - 1)
-    result = []
+    prev_level_characters = get_spaces(level - 1)
+    result = ['{']
     for key, val in diff.items():
         status = val.get('status')
         if status == 'nested':
@@ -58,5 +58,6 @@ def make_stylish(diff, level=1):
         elif status in STATUSES:
             result.append(f"{get_mark(status, level)}{key}: "
                           f"{get_nested(val['value'], level + 1)}")
+    result.append(f"{prev_level_characters}}}")
     result = '\n'.join(result)
-    return f"{{\n{result}\n{previus_characters}}}"
+    return result
