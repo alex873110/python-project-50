@@ -7,8 +7,10 @@ For help type `gendiff -h`
 # About project
 Difference calculator is a programm that shows the difference between two files.  
 > JSON and YAML files are supported.  
+
 Difference can be shown in three formats:  
 > stylish(nested dicts), plain(simple text) and json(JSON format).  
+
 Stylish format is used by default.  
 For use difference calculator type: gendiff -f *format*  *file1_path* *file2_path*.  
 For example `gendiff -f plain gendiff/files/file1.json gendiff/files/file2.json`   
