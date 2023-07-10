@@ -1,6 +1,6 @@
 from .constants import ADDED, REMOVED, UNCHANGED, UPDATED, NESTED
 
-STATUSES = [ADDED, REMOVED, UNCHANGED]
+STATUSES = {ADDED: '+ ', REMOVED: '- ', UNCHANGED: '  '}
 MARK_SIZE = 2
 BLANK_SIZE = 4
 
@@ -11,13 +11,7 @@ def built_indent(level, mark_size=0):
 
 
 def get_mark(status, level):
-    mark = ''
-    if status == ADDED:
-        mark += '+ '
-    elif status == REMOVED:
-        mark += '- '
-    elif status == UNCHANGED:
-        mark += '  '
+    mark = STATUSES[status]
     indent = built_indent(level, MARK_SIZE)
     return f"{indent}{mark}"
 
