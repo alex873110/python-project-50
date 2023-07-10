@@ -22,14 +22,14 @@ def get_mark(status, level):
     return f"{indent}{mark}"
 
 
-def make_volume_data(data, level=1):
+def generate_stroke(data, level=1):
     indent = built_indent(level)
     previus_level_indent = built_indent(level - 1)
     result = ''
     if isinstance(data, dict):
         result += "{\n"
         for key, val in data.items():
-            result += f"{indent}{key}: {make_volume_data(val, level + 1)}\n"
+            result += f"{indent}{key}: {generate_stroke(val, level + 1)}\n"
         result += f"{previus_level_indent}}}"
     elif isinstance(data, (int, bool)):
         result += f"{str(data).lower()}"
@@ -40,7 +40,7 @@ def make_volume_data(data, level=1):
     return result
 
 
-def make_stylish(diff, level=1):
+def make_volume_diff(diff, level=1):
     indent = built_indent(level)
     prev_level_indent = built_indent(level - 1)
     result = ['{']
@@ -49,17 +49,21 @@ def make_stylish(diff, level=1):
         if status == NESTED:
             children = val['children']
             result.append(f"{indent}{key}: "
-                          f"{make_stylish(children, level + 1)}")
+                          f"{make_volume_diff(children, level + 1)}")
         elif status == UPDATED:
             added_and_removed_val = sorted(val['value'].keys(), reverse=True)
             for item in added_and_removed_val:
                 value = val['value'][item]
                 result.append(f"{get_mark(item, level)}{key}: "
-                              f"{make_volume_data(value, level + 1)}")
+                              f"{generate_stroke(value, level + 1)}")
         elif status in STATUSES:
             value = val['value']
             result.append(f"{get_mark(status, level)}{key}: "
-                          f"{make_volume_data(value, level + 1)}")
+                          f"{generate_stroke(value, level + 1)}")
     result.append(f"{prev_level_indent}}}")
     result = '\n'.join(result)
     return result
+
+
+def make_stylish(diff):
+    return make_volume_diff(diff)
