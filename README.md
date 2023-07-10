@@ -1,8 +1,8 @@
 [![Actions Status](https://github.com/alex873110/python-project-50/workflows/hexlet-check/badge.svg)](https://github.com/alex873110/python-project-50/actions)  
+[![Python CI](https://github.com/alex873110/python-project-50/actions/workflows/main.yml/badge.svg)](https://github.com/alex873110/python-project-50/actions/workflows/main.yml)
 <a href="https://codeclimate.com/github/alex873110/python-project-50/maintainability"><img
 src="https://api.codeclimate.com/v1/badges/dafb77493b9982091195/maintainability" /></a>  
 [![Test Coverage](https://api.codeclimate.com/v1/badges/dafb77493b9982091195/test_coverage)](https://codeclimate.com/github/alex873110/python-project-50/test_coverage)  
-[![Python CI](https://github.com/alex873110/python-project-50/actions/workflows/main.yml/badge.svg)](https://github.com/alex873110/python-project-50/actions/workflows/main.yml)  
 
 # Installation
 For instsall run `poetry build`, `poetry publish --dry-run`,
@@ -25,7 +25,7 @@ For example `gendiff -f plain gendiff/files/file1.json gendiff/files/file2.json`
 
 ### Links to asciinema videos with gendiff package use.
 
-(<https://asciinema.org/a/eAgnFmzdU1FujHG8FGFnbgXJv>)
+[![asciicast](https://asciinema.org/a/eAgnFmzdU1FujHG8FGFnbgXJv.svg)](https://asciinema.org/a/eAgnFmzdU1FujHG8FGFnbgXJv)
 
 [![asciicast](https://asciinema.org/a/bQknzievpckedTh6ujzgz9CA5.svg)](https://asciinema.org/a/bQknzievpckedTh6ujzgz9CA5)
 
