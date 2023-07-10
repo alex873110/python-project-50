@@ -6,8 +6,8 @@ from gendiff.formaters.constants import UNCHANGED, NESTED
 
 def get_diff(data1, data2):
     keys = list(data1.keys() | data2.keys())
-    removed_keys = list(data1.keys() - data2.keys())
-    added_keys = list(data2.keys() - data1.keys())
+    removed_keys = data1.keys() - data2.keys()
+    added_keys = data2.keys() - data1.keys()
     result = dict()
     keys.sort()
     for key in keys:
