@@ -43,19 +43,18 @@ def make_volume_diff(diff, level=1):
     for key, val in diff.items():
         status = val.get('status')
         if status == NESTED:
-            children = val['children']
             result.append(f"{indent}{key}: "
-                          f"{make_volume_diff(children, level + 1)}")
+                          f"{make_volume_diff(val['children'], level + 1)}")
         elif status == UPDATED:
             added_and_removed_val = sorted(val['value'].keys(), reverse=True)
             for item in added_and_removed_val:
-                value = val['value'][item]
-                result.append(f"{get_mark(item, level)}{key}: "
-                              f"{generate_stroke(value, level + 1)}")
+                result.append(
+                   f"{get_mark(item, level)}{key}: "
+                   f"{generate_stroke(val['value'][item], level + 1)}"
+                )
         elif status in STATUSES:
-            value = val['value']
             result.append(f"{get_mark(status, level)}{key}: "
-                          f"{generate_stroke(value, level + 1)}")
+                          f"{generate_stroke(val['value'], level + 1)}")
     result.append(f"{prev_level_indent}}}")
     result = '\n'.join(result)
     return result
