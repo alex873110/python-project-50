@@ -49,8 +49,8 @@ def make_volume_diff(diff, level=1):
             added_and_removed_val = sorted(val['value'].keys(), reverse=True)
             for item in added_and_removed_val:
                 result.append(
-                   f"{get_mark(item, level)}{key}: "
-                   f"{generate_stroke(val['value'][item], level + 1)}"
+                    f"{get_mark(item, level)}{key}: "
+                    f"{generate_stroke(val['value'][item], level + 1)}"
                 )
         elif status in STATUSES:
             result.append(f"{get_mark(status, level)}{key}: "
