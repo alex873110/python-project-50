@@ -19,19 +19,21 @@ def get_mark(status, level):
 def generate_stroke(data, level=1):
     indent = built_indent(level)
     previus_level_indent = built_indent(level - 1)
-    result = ''
+    stroke = ''
     if isinstance(data, dict):
-        result += "{\n"
+        nested_stroke = ["{"]
         for key, val in data.items():
-            result += f"{indent}{key}: {generate_stroke(val, level + 1)}\n"
-        result += f"{previus_level_indent}}}"
+            nested_stroke.append(f"{indent}{key}: "
+                                 f"{generate_stroke(val, level + 1)}")
+        nested_stroke.append(f"{previus_level_indent}}}")
+        stroke += '\n'.join(nested_stroke)
     elif isinstance(data, (int, bool)):
-        result += f"{str(data).lower()}"
+        stroke += f"{str(data).lower()}"
     elif data is None:
-        result += 'null'
+        stroke += 'null'
     else:
-        result += data
-    return result
+        stroke += data
+    return stroke
 
 
 def make_volume_diff(diff, level=1):

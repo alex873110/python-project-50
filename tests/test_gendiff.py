@@ -15,8 +15,8 @@ def read(file_path):
 
 
 @pytest.mark.parametrize('file1_name,file2_name,expected',
-                         [('file1.json', 'file2.json', 'expected.txt'),
-                          ('file1.yml', 'file2.yaml', 'expected.txt'),
+                         [('file1.json', 'file2.json', 'expected.json'),
+                          ('file1.yml', 'file2.yaml', 'expected.json'),
                           ('deepfile1.json', 'deepfile2.json',
                            'deepexpected.txt'),
                           ('deepfile1.yml', 'deepfile2.yaml',
