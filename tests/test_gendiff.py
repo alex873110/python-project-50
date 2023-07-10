@@ -10,13 +10,13 @@ def get_fixture_path(file_name):
 
 def read(file_path):
     with open(file_path, 'r') as f:
-        result = f.read()
-    return result
+        result = ''.join(f.readlines())
+    return result[:-1]
 
 
 @pytest.mark.parametrize('file1_name,file2_name,expected',
-                         [('file1.json', 'file2.json', 'expected.json'),
-                          ('file1.yml', 'file2.yaml', 'expected.json'),
+                         [('file1.json', 'file2.json', 'expected'),
+                          ('file1.yml', 'file2.yaml', 'expected'),
                           ('deepfile1.json', 'deepfile2.json',
                            'deepexpected.txt'),
                           ('deepfile1.yml', 'deepfile2.yaml',
@@ -24,7 +24,7 @@ def read(file_path):
 def test_generate_diff(file1_name, file2_name, expected):
     file1 = get_fixture_path(file1_name)
     file2 = get_fixture_path(file2_name)
-    result = read(get_fixture_path(expected))[:-1]
+    result = read(get_fixture_path(expected))
     assert generate_diff(file1, file2) == result
 
 
@@ -40,5 +40,5 @@ def test_generate_diff(file1_name, file2_name, expected):
 def test_generate_diff_with_formater(file1_name, file2_name, expected, format):
     file1 = get_fixture_path(file1_name)
     file2 = get_fixture_path(file2_name)
-    result = read(get_fixture_path(expected))[:-1]
+    result = read(get_fixture_path(expected))
     assert generate_diff(file1, file2, format) == result
