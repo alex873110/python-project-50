@@ -18,7 +18,7 @@ def read(file_path):
 @pytest.mark.parametrize('file1_name,file2_name,expected',
                          [('file1.json', 'file2.json', 'result_stylish'),
                           ('file1.yml', 'file2.yml', 'result_stylish')])
-def test_generate_diff(file1_name, file2_name, expected):
+def test_generate_diff_default_formater(file1_name, file2_name, expected):
     file1 = get_fixture_path(file1_name)
     file2 = get_fixture_path(file2_name)
     result = read(get_fixture_path(expected))
@@ -34,7 +34,7 @@ def test_generate_diff(file1_name, file2_name, expected):
                            'result_stylish', 'stylish'),
                           ('file1.yml', 'file2.yml',
                            'result_stylish', 'stylish')])
-def test_generate_diff_with_formater(file1_name, file2_name, expected, format):
+def test_generate_diff_plain_stylish(file1_name, file2_name, expected, format):
     file1 = get_fixture_path(file1_name)
     file2 = get_fixture_path(file2_name)
     result = read(get_fixture_path(expected))
