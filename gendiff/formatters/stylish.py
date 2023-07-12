@@ -34,29 +34,29 @@ def convert_to_str(data, level=1):
         return data
 
 
-def make_volume_diff(diff, level=1):
+def build_stylish_tree(tree, level=1):
     indent = built_indent(level)
     prev_level_indent = built_indent(level - 1)
     result = ['{']
-    for key, val in diff.items():
-        status = val.get('status')
-        if status == NESTED:
+    for key, val in tree.items():
+        branch_status = val.get('status')
+        if branch_status == NESTED:
             result.append(f"{indent}{key}: "
-                          f"{make_volume_diff(val['children'], level + 1)}")
-        elif status == UPDATED:
+                          f"{build_stylish_tree(val['children'], level + 1)}")
+        elif branch_status == UPDATED:
             added_and_removed_val = sorted(val['value'].keys(), reverse=True)
             for item in added_and_removed_val:
                 result.append(
                     f"{get_mark(item, level)}{key}: "
                     f"{convert_to_str(val['value'][item], level + 1)}"
                 )
-        elif status in STATUSES:
-            result.append(f"{get_mark(status, level)}{key}: "
+        elif branch_status in STATUSES:
+            result.append(f"{get_mark(branch_status, level)}{key}: "
                           f"{convert_to_str(val['value'], level + 1)}")
     result.append(f"{prev_level_indent}}}")
     result = '\n'.join(result)
     return result
 
 
-def apply_stylish(diff):
-    return make_volume_diff(diff)
+def apply_stylish(tree):
+    return build_stylish_tree(tree)
