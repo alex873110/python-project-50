@@ -26,17 +26,17 @@ def build_line(key, data, adress):
         return f"{start} was added with value: {to_str(value['value'])}"
 
 
-def build_plain(diff, path=''):
-    result = []
+def build_plain_text(tree, path=''):
+    text = []
     statuses = [ADDED, REMOVED, UPDATED]
-    for key, val in diff.items():
+    for key, val in tree.items():
         if val['status'] == NESTED:
-            result.append(build_plain(val['children'], (path + f'{key}.')))
+            text.append(build_plain_text(val['children'], (path + f'{key}.')))
         elif val['status'] in statuses:
-            result.append(build_line(key, diff, path))
-    result = '\n'.join(result)
-    return result
+            text.append(build_line(key, tree, path))
+    text = '\n'.join(text)
+    return text
 
 
-def apply_plain(diff):
-    return build_plain(diff)
+def apply_plain(tree):
+    return build_plain_text(tree)
