@@ -17,9 +17,9 @@ def get_mark(status, level):
 
 
 def convert_to_str(data, level=1):
-    indent = built_indent(level)
-    previus_level_indent = built_indent(level - 1)
     if isinstance(data, dict):
+        indent = built_indent(level)
+        previus_level_indent = built_indent(level - 1)
         nested_text = ["{"]
         for key, val in data.items():
             nested_text.append(f"{indent}{key}: "
