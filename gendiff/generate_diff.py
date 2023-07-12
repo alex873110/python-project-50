@@ -1,7 +1,7 @@
 from gendiff.parser import get_content
-from gendiff.formaters.formater import use_formater
-from gendiff.formaters.constants import ADDED, REMOVED, UPDATED
-from gendiff.formaters.constants import UNCHANGED, NESTED
+from gendiff.formatters.formatter import apply_formatter
+from gendiff.formatters.constants import ADDED, REMOVED, UPDATED
+from gendiff.formatters.constants import UNCHANGED, NESTED
 
 
 def build_diff_tree(data1, data2):
@@ -31,4 +31,4 @@ def generate_diff(file1_path, file2_path, format='stylish'):
     file1_content = get_content(file1_path)
     file2_content = get_content(file2_path)
     diff_tree = build_diff_tree(file1_content, file2_content)
-    return use_formater(diff_tree, format)
+    return apply_formatter(diff_tree, format)
