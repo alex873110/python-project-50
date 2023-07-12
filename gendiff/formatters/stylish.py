@@ -44,7 +44,7 @@ def build_stylish_tree(tree, level=1):
             result.append(f"{indent}{key}: "
                           f"{build_stylish_tree(val['children'], level + 1)}")
         elif branch_status == UPDATED:
-            added_and_removed_val = sorted(val['value'].keys(), reverse=True)
+            added_and_removed_val = val['value'].keys()
             for item in added_and_removed_val:
                 result.append(
                     f"{get_mark(item, level)}{key}: "
