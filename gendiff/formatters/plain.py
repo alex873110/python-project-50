@@ -6,10 +6,12 @@ def to_str(data):
         return '[complex value]'
     elif isinstance(data, str):
         return f"'{data}'"
-    elif isinstance(data, (int, bool)):
+    elif isinstance(data, bool):
         return str(data).lower()
     elif data is None:
         return 'null'
+    else:
+        return data
 
 
 def build_line(key, data, adress):
