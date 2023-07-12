@@ -26,12 +26,12 @@ def build_stroke(key, data, adress):
     return stroke
 
 
-def make_plain(diff, adress=''):
+def apply_plain(diff, adress=''):
     result = []
     statuses = [ADDED, REMOVED, UPDATED]
     for key, val in diff.items():
         if val['status'] == NESTED:
-            result.append(make_plain(val['children'], (adress + f'{key}.')))
+            result.append(apply_plain(val['children'], (adress + f'{key}.')))
         elif val['status'] in statuses:
             result.append(build_stroke(key, diff, adress))
     result = '\n'.join(result)

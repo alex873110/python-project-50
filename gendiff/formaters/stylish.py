@@ -58,5 +58,5 @@ def make_volume_diff(diff, level=1):
     return result
 
 
-def make_stylish(diff):
+def apply_stylish(diff):
     return make_volume_diff(diff)
