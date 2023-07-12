@@ -16,24 +16,24 @@ def get_mark(status, level):
     return f"{indent}{mark}"
 
 
-def generate_stroke(data, level=1):
+def convert_to_str(data, level=1):
     indent = built_indent(level)
     previus_level_indent = built_indent(level - 1)
-    stroke = ''
+    text = ''
     if isinstance(data, dict):
-        nested_stroke = ["{"]
+        nested_text = ["{"]
         for key, val in data.items():
-            nested_stroke.append(f"{indent}{key}: "
-                                 f"{generate_stroke(val, level + 1)}")
-        nested_stroke.append(f"{previus_level_indent}}}")
-        stroke += '\n'.join(nested_stroke)
+            nested_text.append(f"{indent}{key}: "
+                               f"{convert_to_str(val, level + 1)}")
+        nested_text.append(f"{previus_level_indent}}}")
+        text += '\n'.join(nested_text)
     elif isinstance(data, (int, bool)):
-        stroke += f"{str(data).lower()}"
+        text += f"{str(data).lower()}"
     elif data is None:
-        stroke += 'null'
+        text += 'null'
     else:
-        stroke += data
-    return stroke
+        text += data
+    return text
 
 
 def make_volume_diff(diff, level=1):
@@ -50,11 +50,11 @@ def make_volume_diff(diff, level=1):
             for item in added_and_removed_val:
                 result.append(
                     f"{get_mark(item, level)}{key}: "
-                    f"{generate_stroke(val['value'][item], level + 1)}"
+                    f"{convert_to_str(val['value'][item], level + 1)}"
                 )
         elif status in STATUSES:
             result.append(f"{get_mark(status, level)}{key}: "
-                          f"{generate_stroke(val['value'], level + 1)}")
+                          f"{convert_to_str(val['value'], level + 1)}")
     result.append(f"{prev_level_indent}}}")
     result = '\n'.join(result)
     return result
