@@ -12,27 +12,29 @@ def to_str(data):
         return 'null'
 
 
-def build_stroke(key, data, adress):
+def build_line(key, data, adress):
     value = data[key]
     start = f"Property '{adress}{key}'"
-    stroke = ''
     if value['status'] == UPDATED:
-        stroke = f"{start} was updated. From {to_str(value['value'][REMOVED])}"
-        stroke += f" to {to_str(value['value'][ADDED])}"
+        return (f"{start} was updated. From {to_str(value['value'][REMOVED])}"
+                f" to {to_str(value['value'][ADDED])}")
     elif value['status'] == REMOVED:
-        stroke = f"{start} was removed"
+        return f"{start} was removed"
     elif value['status'] == ADDED:
-        stroke = f"{start} was added with value: {to_str(value['value'])}"
-    return stroke
+        return f"{start} was added with value: {to_str(value['value'])}"
 
 
-def apply_plain(diff, adress=''):
+def build_plain(diff, path=''):
     result = []
     statuses = [ADDED, REMOVED, UPDATED]
     for key, val in diff.items():
         if val['status'] == NESTED:
-            result.append(apply_plain(val['children'], (adress + f'{key}.')))
+            result.append(build_plain(val['children'], (path + f'{key}.')))
         elif val['status'] in statuses:
-            result.append(build_stroke(key, diff, adress))
+            result.append(build_line(key, diff, path))
     result = '\n'.join(result)
     return result
+
+
+def apply_plain(diff):
+    return build_plain(diff)
