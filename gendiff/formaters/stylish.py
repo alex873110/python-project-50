@@ -19,21 +19,19 @@ def get_mark(status, level):
 def convert_to_str(data, level=1):
     indent = built_indent(level)
     previus_level_indent = built_indent(level - 1)
-    text = ''
     if isinstance(data, dict):
         nested_text = ["{"]
         for key, val in data.items():
             nested_text.append(f"{indent}{key}: "
                                f"{convert_to_str(val, level + 1)}")
         nested_text.append(f"{previus_level_indent}}}")
-        text += '\n'.join(nested_text)
+        return '\n'.join(nested_text)
     elif isinstance(data, (int, bool)):
-        text += f"{str(data).lower()}"
+        return f"{str(data).lower()}"
     elif data is None:
-        text += 'null'
+        return 'null'
     else:
-        text += data
-    return text
+        return data
 
 
 def make_volume_diff(diff, level=1):
