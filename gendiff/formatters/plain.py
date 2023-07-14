@@ -16,14 +16,14 @@ def to_str(data):
 
 def build_line(key, data, adress):
     value = data[key]
-    start = f"Property '{adress}{key}'"
+    prefix = f"Property '{adress}{key}'"
     if value['status'] == UPDATED:
-        return (f"{start} was updated. From {to_str(value['value'][REMOVED])}"
+        return (f"{prefix} was updated. From {to_str(value['value'][REMOVED])}"
                 f" to {to_str(value['value'][ADDED])}")
     elif value['status'] == REMOVED:
-        return f"{start} was removed"
+        return f"{prefix} was removed"
     elif value['status'] == ADDED:
-        return f"{start} was added with value: {to_str(value['value'])}"
+        return f"{prefix} was added with value: {to_str(value['value'])}"
 
 
 def build_plain_text(tree, path=''):
