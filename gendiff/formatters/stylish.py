@@ -26,12 +26,12 @@ def convert_to_str(data, level=1):
                                f"{convert_to_str(val, level + 1)}")
         nested_text.append(f"{previus_level_indent}}}")
         return '\n'.join(nested_text)
-    elif isinstance(data, (int, bool)):
+    elif isinstance(data, bool):
         return f"{str(data).lower()}"
     elif data is None:
         return 'null'
     else:
-        return data
+        return f"{data}"
 
 
 def build_stylish_tree(tree, level=1):
