@@ -14,9 +14,8 @@ def to_str(data):
         return data
 
 
-def build_line(key, data, adress):
-    value = data[key]
-    prefix = f"Property '{adress}{key}'"
+def build_line(key, value, path):
+    prefix = f"Property '{path}{key}'"
     if value['status'] == UPDATED:
         return (f"{prefix} was updated. From {to_str(value['value'][REMOVED])}"
                 f" to {to_str(value['value'][ADDED])}")
@@ -27,15 +26,15 @@ def build_line(key, data, adress):
 
 
 def build_plain_text(tree, path=''):
-    text = []
+    lines = []
     statuses = [ADDED, REMOVED, UPDATED]
     for key, val in tree.items():
         if val['status'] == NESTED:
-            text.append(build_plain_text(val['children'], (path + f'{key}.')))
+            lines.append(build_plain_text(val['children'], (path + f'{key}.')))
         elif val['status'] in statuses:
-            text.append(build_line(key, tree, path))
-    text = '\n'.join(text)
-    return text
+            lines.append(build_line(key, val, path))
+    lines = '\n'.join(lines)
+    return lines
 
 
 def apply_plain(tree):
