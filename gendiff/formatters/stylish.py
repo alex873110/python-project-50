@@ -43,14 +43,14 @@ def build_stylish_tree(tree, level=1):
         if node_status == NESTED:
             result.append(f"{indent}{key}: "
                           f"{build_stylish_tree(val['children'], level + 1)}")
-        elif node_status == UPDATED:
+        if node_status == UPDATED:
             added_and_removed_val = val['value'].keys()
             for item in added_and_removed_val:
                 result.append(
                     f"{get_mark(item, level)}{key}: "
                     f"{convert_to_str(val['value'][item], level + 1)}"
                 )
-        elif node_status in STATUSES:
+        if node_status in STATUSES:
             result.append(f"{get_mark(node_status, level)}{key}: "
                           f"{convert_to_str(val['value'], level + 1)}")
     result.append(f"{prev_level_indent}}}")

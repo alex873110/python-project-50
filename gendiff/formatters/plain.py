@@ -19,9 +19,9 @@ def build_line(key, value, path):
     if value['status'] == UPDATED:
         return (f"{prefix} was updated. From {to_str(value['value'][REMOVED])}"
                 f" to {to_str(value['value'][ADDED])}")
-    elif value['status'] == REMOVED:
+    if value['status'] == REMOVED:
         return f"{prefix} was removed"
-    elif value['status'] == ADDED:
+    if value['status'] == ADDED:
         return f"{prefix} was added with value: {to_str(value['value'])}"
 
 
